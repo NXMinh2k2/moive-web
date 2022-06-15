@@ -1,5 +1,5 @@
 import React from 'react'
-import {FaHome, FaHotjar, FaStar} from 'react-icons/fa'
+import {FaHotjar, FaStar} from 'react-icons/fa'
 import {MdTheaterComedy} from 'react-icons/md'
 import {GiNinjaHeroicStance, GiRomanToga, GiGhost, GiBandageRoll} from 'react-icons/gi'
 import {SiNetflix} from 'react-icons/si'

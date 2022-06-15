@@ -13,7 +13,10 @@ a {
 
 :root {
     --color-white: rgba(220, 218, 218);
-    --color-background: rgba(16, 16, 16)
+    --color-background: rgba(16, 16, 16);
+
+    --color-dark: rgb(23, 24, 24);
+    --color-green: rgb(92, 223, 92)
 }
 
 body {

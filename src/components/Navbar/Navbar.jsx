@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {MdSearch} from 'react-icons/md'
 import styled from 'styled-components'
 import NetflixLogo from '../../assets/images/logo1.png'
