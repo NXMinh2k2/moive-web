@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {FaHotjar, FaStar} from 'react-icons/fa'
 import {MdTheaterComedy} from 'react-icons/md'
 import {GiNinjaHeroicStance, GiRomanToga, GiGhost, GiBandageRoll} from 'react-icons/gi'
@@ -64,4 +64,4 @@ const Menu = () => {
   )
 }
 
-export default Menu
+export default memo(Menu)

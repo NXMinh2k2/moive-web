@@ -1,10 +1,10 @@
 import './App.css';
-import Contents from './components/Contents/Contents';
-import Intro from './components/Intro/Intro';
-import Menu from './components/Menu/Menu';
-import MoviesDetail from './components/MoviesDetail/MoviesDetail';
 import Navbar from './components/Navbar/Navbar';
 import {useSelector} from 'react-redux';
+import Home from './components/Pages/Home';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Search from './components/Pages/Search';
+
 
 function App() {
 
@@ -12,11 +12,14 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-      {/* <Intro />
-      <Contents />
-      <Menu />
-      <MoviesDetail movie={MovieDetail} showModal={MovieDetail ? true : false}/> */}
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/search' element={<Search />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <SearchMovies /> */}
     </div>
   );
 }
