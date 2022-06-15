@@ -4,6 +4,8 @@ import {FiChevronLeft, FiChevronRight} from "react-icons/fi"
 import NetflixLogo from '../../assets/images/logo1.png'
 import {SmoothHorizontalScrolling} from '../../utils'
 import { useViewport } from '../hooks'
+import { useDispatch } from 'react-redux'
+import { setMovieDetail } from '../store/actions'
 
 const MoviesRowContainer = styled.div`
     background-color: var(--color-background);
@@ -156,6 +158,11 @@ const MoviesRow = (props) => {
     const sliderRef = useRef()
     const movieRef = useRef()
 
+    const dispatch = useDispatch()
+
+    const handleSetMovie = (movie) => {
+        dispatch(setMovieDetail(movie))
+    }
     // const handleScrollRight = () => {
     //     const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth
     //     if(sliderRef.current.scrollLeft < maxScrollLeft) {
@@ -192,7 +199,7 @@ const MoviesRow = (props) => {
                         `https://image.tmdb.org/t/p/original/${movie.poster_path}`:
                         `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
                         return (
-                            <div key={index} className="movieItem" ref={movieRef}>
+                            <div key={index} className="movieItem" ref={movieRef} onClick={() => handleSetMovie(movie)}>
                                 <img src={imageUrl} alt="" />
                                 <div className='movieName'>{movie.title || movie.name}</div>
                             </div>
