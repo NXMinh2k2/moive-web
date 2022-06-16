@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { useViewport } from '../hooks'
+import { getSearchMovies, setMovieDetail } from '../store/actions'
 
 const SearchPane = styled.div`
     width: 100%;
@@ -62,56 +65,55 @@ const NotFound = styled.div`
 `
     
 
+const useQuery = () => new URLSearchParams(useLocation().search)
 const SearchMovies = () => {
 
     const [windowWidth] = useViewport()
+    const dispatch = useDispatch()
+    const {SearchMovies} = useSelector(state => state.infoMovies)
+
+    const keywords = useQuery().get('keywords')
+
+    useEffect(() => {
+        if(keywords) dispatch(getSearchMovies(keywords))
+    }, [keywords, dispatch])
 
   return (
     <SearchPane>
-        <div 
-            className='searchContent'
-            style={{
-                gridTemplateColumns: `repeat(${
-                    windowWidth > 1200 ? 5 :
-                    windowWidth > 992 ? 4 :
-                    windowWidth > 768 ? 3 :
-                    windowWidth > 600 ? 2 : 1
-                }, auto)`
-            }}
-        >
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-            <div className='movieItem'>
-                <img src='https://cdn.europosters.eu/image/750webp/115936.webp' alt="" />
-                <span>Movie Name</span>
-            </div>
-        </div>
+        {
+            SearchMovies && SearchMovies.length > 0 ? (
+                <div 
+                    className='searchContent'
+                    style={{
+                        gridTemplateColumns: `repeat(${
+                            windowWidth > 1200 ? 5 :
+                            windowWidth > 992 ? 4 :
+                            windowWidth > 768 ? 3 :
+                            windowWidth > 600 ? 2 : 1
+                        }, auto)`
+                    }}
+                >
+                    {
+                        SearchMovies.map((movie, index) => {
+                            if(movie.backdrop_path !== null && movie.media_type !== 'person') {
+                                const imageUrl = `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+                                return (
+                                    <div className='movieItem' key={index} onClick={() => dispatch(setMovieDetail(movie))}>
+                                        <img src={imageUrl} alt="" />
+                                        <span>{movie.title || movie.name}</span>
+                                    </div>
+                                )
+                            }
+                        })
+                    }
+                </div>
+                ) : 
+                (
+                    <NotFound>
+                        <h1>{`Your search for "123" did not have any result`}</h1>
+                    </NotFound>
+                )
+        }
     </SearchPane>
   )
 }

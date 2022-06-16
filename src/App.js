@@ -1,15 +1,11 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {useSelector} from 'react-redux';
 import Home from './components/Pages/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Search from './components/Pages/Search';
 
 
 function App() {
-
-  const {MovieDetail} = useSelector(state => state.infoMovies)
-
   return (
     <div className="App">
       <BrowserRouter>
